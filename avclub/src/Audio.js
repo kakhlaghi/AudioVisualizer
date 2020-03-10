@@ -1,44 +1,54 @@
-import React, {Component} from 'react';
+import React, {
+    Component
+} from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Button from '@material-ui/core/Button';
 
-class Audio extends Component
-{
-    constructor(props){
+class Audio extends Component {
+    constructor(props) {
         super()
-        this.state={
+        this.state = {
             isPlaying: false,
             volume: 1.0,
             isBuffering: false,
             song: 'unselected',
-            data: ''
+            data: '',
+            filter: 'artist',
+            artist: '',
+            album: ''
         }
     }
-    
-    async componentDidUpdate () {
+
+    componentDidUpdate(prevProps) {
+        if(this.props.query !== prevProps.query){
+            this.getMusic(this.props.query)
+        }
+    }
+
+    async getMusic(query){
         let state = this.state;
-        let query = this.props.query;
-        await fetch(`https://api.deezer.com/search?q=${query}`,{mode: 'cors'})
-        .then(response => response.json())
-        .then(json => {
-            this.setState((state) => ({data: json}))
-        })
-        .catch(function(err){
-            console.log(err);
+        await fetch(`https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${query}`)
+        .then(response => 
+            response.json()
+        )
+        .then(json =>
+            state.data = json
+        )
+        .catch(function (err) {
+            console.error(err);
         });
-        console.log(this.state)
+        this.setState(state)
+        console.log(this.state.data)
     }
 
-    getMusic = (query) => {
-
+    changeFilter = () => {
 
     }
 
-    render(){
-        return(
+    render() {
+        return ( 
             <div>
-                <Button><PlayArrowIcon /></Button>
-                {this.state.data}
+            <Button> <PlayArrowIcon / > </Button> 
             </div>
         )
     }
