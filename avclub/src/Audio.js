@@ -12,7 +12,7 @@ class Audio extends Component {
             volume: 1.0,
             isBuffering: false,
             song: 'unselected',
-            data: '',
+            data: [],
             filter: 'artist',
             artist: '',
             album: ''
@@ -32,23 +32,33 @@ class Audio extends Component {
             response.json()
         )
         .then(json =>
-            state.data = json
+            state.data = json.data
         )
         .catch(function (err) {
             console.error(err);
         });
         this.setState(state)
-        console.log(this.state.data)
     }
 
-    changeFilter = () => {
-
+    showData = () => {
+        if(this.state.data !== ''){
+            return this.state.data.map(find =>
+               find.link
+            )
+        }
     }
 
     render() {
         return ( 
             <div>
-            <Button> <PlayArrowIcon / > </Button> 
+                <Button> <PlayArrowIcon / > </Button> 
+                <ul>  
+                {this.state && this.state.data && this.state.data.map(find =>
+                        <li>
+                            <a href={find.link}>{find.title} - {find.artist.name}</a>
+                        </li>
+                    ) }
+                </ul>
             </div>
         )
     }
