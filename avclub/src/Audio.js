@@ -3,6 +3,8 @@ import React, {
 } from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Button from '@material-ui/core/Button';
+import MediaControlCard from './Card';
+import "./Audio.css";
 
 class Audio extends Component {
     constructor(props) {
@@ -38,6 +40,7 @@ class Audio extends Component {
             console.error(err);
         });
         this.setState(state)
+        //console.log(this.state.data)
     }
 
     showData = () => {
@@ -53,10 +56,10 @@ class Audio extends Component {
             <div>
                 <Button> <PlayArrowIcon / > </Button> 
                 <ul>  
-                {this.state && this.state.data && this.state.data.map(find =>
-                        <li>
-                            <a href={find.link}>{find.title} - {find.artist.name}</a>
-                        </li>
+                {this.state && this.state.data && this.state.data.map((find,index)=>
+                        <div key={index}>
+                            <MediaControlCard data={find} />
+                        </div>
                     ) }
                 </ul>
             </div>
