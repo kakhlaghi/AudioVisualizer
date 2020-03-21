@@ -7,6 +7,7 @@ function App() {
   return (
     <div className="App">
       <Search />
+      <a href='http://localhost:8888'> Login to Spotify </a>
     </div>
   );
 }
