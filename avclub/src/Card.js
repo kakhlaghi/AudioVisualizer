@@ -6,6 +6,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Link from '@material-ui/core/Link';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,10 +39,19 @@ const useStyles = makeStyles(theme => ({
 const MediaControlCard = (find) => {
   const classes = useStyles();
   const theme = useTheme();
-  console.log(find.data.album.cover_medium)
+
+  const setCurrentSong = (find) => {
+    if(find.data.link){
+      this.props.callbackAudio(find.data.link);
+    } else {
+      this.props.callbackAudio(' ');
+    }
+  }
+
   return (
     <Card className={classes.root}>
         <CardContent className={classes.content}>
+            <Button onClick={(find)=>this.setCurrentSong(find)}>Queue</Button>
             <Link href={find.data.link}>{find.data.title} - {find.data.artist.name} </Link>
         </CardContent>
         <CardMedia

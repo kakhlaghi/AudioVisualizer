@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import TextField from '@material-ui/core/TextField';
 import Audio from './Audio.js';
+import "./Audio.css";
 
 function Search(){
     const [query, setQuery] = useState('');
@@ -27,10 +28,14 @@ function Search(){
     } */
 
     return(
-        <form>
-            <TextField id="standard-basic" defaultValue=" " label="Standard" onChange={(event)=>setQuery(event.target.value)}/>
-            <Audio query={query}/>
-        </form>
+        <div>
+            <form>
+                <TextField id="standard-basic" defaultValue=" " label="Search" onChange={(event)=>setQuery(event.target.value)}/>        
+            </form>
+            <div id="audio">
+                <Audio query={query}/>
+            </div>
+        </div>
     )
 }
 
