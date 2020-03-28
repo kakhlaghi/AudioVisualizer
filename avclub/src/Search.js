@@ -3,13 +3,14 @@ import TextField from '@material-ui/core/TextField';
 import Audio from './Audio.js';
 import "./Audio.css";
 
-function Search(){
+function Search({token}){
     const [query, setQuery] = useState('');
     /* const [data, setData] = useState('');
 
     useEffect(()=>{
         getMusic(query)
     }, [query])
+
 
     async function getMusic(query){
         let state = this.state;
@@ -27,13 +28,18 @@ function Search(){
         console.log(this.state.data)
     } */
 
+    useEffect(()=>{
+        
+    })
+
+
     return(
         <div>
             <form>
-                <TextField id="standard-basic" defaultValue=" " label="Search" onChange={(event)=>setQuery(event.target.value)}/>        
+                <TextField id="standard-basic" defaultValue=' ' label="Search" onChange={(event)=>setQuery(event.target.value)}/>        
             </form>
             <div id="audio">
-                <Audio query={query}/>
+                <Audio query={query} token={token}/>
             </div>
         </div>
     )

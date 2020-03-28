@@ -36,28 +36,31 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MediaControlCard = (find) => {
+const MediaControlCard = ({data, callbackAudio}) => {
+  
   const classes = useStyles();
   const theme = useTheme();
 
-  const setCurrentSong = (find) => {
-    if(find.data.link){
-      this.props.callbackAudio(find.data.link);
+  const setCurrentSong = (event) => {
+    event.preventDefault()
+    if(data.href){
+      callbackAudio(data.href);
     } else {
-      this.props.callbackAudio(' ');
+      callbackAudio(' ');
     }
   }
 
   return (
     <Card className={classes.root}>
         <CardContent className={classes.content}>
-            <Button onClick={(find)=>this.setCurrentSong(find)}>Queue</Button>
-            <Link href={find.data.link}>{find.data.title} - {find.data.artist.name} </Link>
+            <Button onClick={(event)=>setCurrentSong(event)}>Queue</Button>
+            <Link href={data.artists[0].href}>{data.artists[0].name} : </Link>
+            <Link href={data.href}> {data.name} </Link>
         </CardContent>
         <CardMedia
             className={classes.cover}
-            image={find.data.album.cover}
-            title={find.data.album.title}
+            image={data.album.cover}
+            title={data.album.title}
         />
     </Card>
   );

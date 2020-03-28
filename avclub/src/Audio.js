@@ -31,18 +31,24 @@ class Audio extends Component {
     }
 
     musicCallback = (childData) => {
-        console.log(childData)
-        this.setState({ song: childData });
+        this.setState({ song: childData }, ()=>console.log(this.state.song));
+        console.log(this.state)
     }
 
     async getMusic(query){
         let state = this.state;
-        await fetch(`https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${query}`)
-        .then(response => 
+        
+        await fetch(`https://api.spotify.com/v1/search?q=${query}&type=track`, 
+        {
+            headers:{
+                'Authorization': `Bearer ${this.props.token}`
+            }
+        })
+        .then(response =>
             response.json()
         )
         .then(json =>
-            state.data = json.data
+            state.data = json.tracks
         )
         .catch(function (err) {
             console.error(err);
@@ -59,6 +65,7 @@ class Audio extends Component {
     }
 
     render() {
+        
         return ( 
             <div>
                 <audio controls>
@@ -66,11 +73,11 @@ class Audio extends Component {
                     Your browser does not support the audio element.
                 </audio>
                 <ul>  
-                {this.state && this.state.data && this.state.data.map((find,index)=>
+                {this.state && this.state.data.items && this.state.data.items.map((track,index)=>
                         <div key={index}>
-                            <MediaControlCard data={find} callbackAudio={this.musicCallback} />
+                            <MediaControlCard data={track} callbackAudio={this.musicCallback} />
                         </div>
-                    ) }
+                    )}
                 </ul>
             </div>
         )
