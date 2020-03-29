@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Search from './Search.js';
-//import Sdk from './Sdk.js';
+import Sdk from './Sdk.js';
 import UserPlayback from './UserPlayback.js'
 
 require('dotenv');
@@ -51,6 +51,7 @@ render() {
   return (
     <div className="App">
       {/*<Search token={this.state.token}/>*/}
+      <Sdk token={this.state.token} />
       <UserPlayback token={this.state.token}/>
       {!this.state.token && (
         <a
