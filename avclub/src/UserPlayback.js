@@ -80,7 +80,7 @@ class UserPlayback extends Component {
                     {this.infoGate()}
                 </div>
                 <div>
-                    {/*this.visualizerGate()*/}
+                    {this.visualizerGate()}
                 </div>
             </div>
         )

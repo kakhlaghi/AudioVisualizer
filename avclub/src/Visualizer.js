@@ -10,27 +10,30 @@ const Visualizer = ({trackId, token}) => {
         }
     },[trackId, token])
 
+    useEffect(()=>{
+        console.log('metrics', metrics);
+    },[metrics])
+
     async function getMetrics(trackId, token) {
         const request = new Request(`https://api.spotify.com/v1/audio-analysis/${trackId}`, {
             headers: new Headers({
                 'Authorization': `Bearer ${token}`
             })
         });
+        let tmp = ' ';
         await fetch(request)
             .then(response => {
-                console.log(response)
                 return response.json()
             }
             )
             .then(json =>{
-                console.log(json)
-                setMetrics(json)
+                return tmp = json
             })
             .catch(function (err) {
                 console.error(err);
             }
         );
-        console.log(metrics)
+        return setMetrics(tmp);
     }
 
     return(
