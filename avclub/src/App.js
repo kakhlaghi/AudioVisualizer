@@ -4,6 +4,7 @@ import "./App.css";
 import Search from './Search.js';
 import Sdk from './Sdk.js';
 import UserPlayback from './UserPlayback.js'
+import ThreeJsContainer from './ThreeJsContainer.js';
 
 require('dotenv');
 

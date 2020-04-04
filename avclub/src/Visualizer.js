@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from "react";
+import ThreeJsContainer from './ThreeJsContainer.js';
+
 
 const Visualizer = ({trackId, token}) => {
     const [metrics, setMetrics] = useState('');
@@ -38,7 +40,7 @@ const Visualizer = ({trackId, token}) => {
 
     return(
         <div>
-            Visualizer
+            <ThreeJsContainer metrics={metrics}/>
         </div>
     )
 }
