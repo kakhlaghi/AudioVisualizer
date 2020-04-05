@@ -38,7 +38,6 @@ const ThreeJsContainer = ({data, track, trackId}) => {
         //{
         //   pitches += mesh.segments[i].pitches
         //}
-        console.log(mesh)
         for(let i=0; i<data.length; i++)
         {
            for(let x=0; x<data[i].pitches.length; x++)

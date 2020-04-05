@@ -24,7 +24,7 @@ class Sdk extends Component {
         console.log('SDK ' , this.props.token)
         const token = this.props.token;
         const player = new window.Spotify.Player({
-          name: 'Web Playback SDK Quick Start Player',
+          name: 'AVClub',
           getOAuthToken: cb => { cb(token); }
         });
         console.log(player);
