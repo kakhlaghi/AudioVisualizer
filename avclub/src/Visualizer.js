@@ -34,13 +34,14 @@ const Visualizer = ({trackId, token}) => {
             .catch(function (err) {
                 console.error(err);
             }
-        );
+        ); 
+        console.log(tmp);
         return setMetrics(tmp);
     }
 
     return(
         <div>
-            <ThreeJsContainer metrics={metrics}/>
+            <ThreeJsContainer data={metrics.segments}/>
         </div>
     )
 }
