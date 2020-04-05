@@ -5,6 +5,7 @@ Work in Progress
 Uses Spotify's SDK and Web API to present a visual representation of a song using ThreeJS.
 Uses the pitch of the song for changes to the geometry.
 Uses the timbre of the song for changes to the mesh.
+You can connect your Spotify stream via the SDK. (Should be called AVClub).
 
 ## Installation
 Clone cd to avclub (not the root folder)
