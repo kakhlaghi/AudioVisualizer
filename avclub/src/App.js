@@ -65,6 +65,8 @@ render() {
           Login to Spotify
         </a>
       )}
+      <div id='renderer'>
+      </div>
     </div>
   );
   }

@@ -1,9 +1,12 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import * as THREE from 'three';
 import { Vector3 } from 'three';
 
-const ThreeJsContainer = ({data}) => {
+const ThreeJsContainer = ({data, track, trackId}) => {
+    const [rendered, setRendered] = useState(false);
     console.log('data', data)
+    console.log('track', track);
+    console.log('trackId', trackId)
     var camera, scene, renderer;
     var geometry, material, mesh;
     
@@ -16,20 +19,18 @@ const ThreeJsContainer = ({data}) => {
         scene = new THREE.Scene();
     
         geometry = new THREE.SphereGeometry( .2, 32, 32 );
-        material = new THREE.MeshNormalMaterial();
+        material = new THREE.MeshBasicMaterial();
     
         mesh = new THREE.Mesh( geometry, material );
         scene.add( mesh );
     
         renderer = new THREE.WebGLRenderer( { antialias: true } );
         renderer.setSize( window.innerWidth, window.innerHeight );
-        document.body.appendChild( renderer.domElement );
+        document.getElementById('renderer').appendChild( renderer.domElement );
 
-    
     }
  
-    function animate(data) {
-        
+    function animate(data, tempo) {
         requestAnimationFrame( animate );
         //let pitches = [];
         //let timbre = [];
@@ -37,38 +38,52 @@ const ThreeJsContainer = ({data}) => {
         //{
         //   pitches += mesh.segments[i].pitches
         //}
+        console.log(mesh)
         for(let i=0; i<data.length; i++)
         {
            for(let x=0; x<data[i].pitches.length; x++)
            {
-               mesh.scale.x += data[i].pitches[x];
+               setInterval(function(){
+                    mesh.scale.x = data[i].pitches[x];
+                    mesh.scale.y = data[i].pitches[x];
+                    mesh.material.color.setRGB(data[i].timbre[x]/10, data[i].timbre[x]/100, data[i].timbre[x]/20);
+
+               }, track.tempo/60000)
            }
         }
-        console.log(mesh.scale.x)
         //while(metrics.segments)
-        mesh.rotation.x += 0.01;
-        mesh.rotation.y += 0.02;
-        mesh.rotation.z += 0.03;
+        mesh.rotation.z += 0.01;
+        //mesh.rotation.y += 1;
         
         renderer.render( scene, camera );
         
     }
 
-    function metricsCheck(data)
+    function metricsCheck(data, track)
     {
-        if(data){
+        if(data && track && !rendered){
+            console.log('hit)')
+            setRendered(true);
             return(
                 <div>
                     {init()}
-                    {animate(data)}
+                    {animate(data, track.tempo)}
                 </div>
             )
         }
+        /*else if(data && track){
+            renderer = document.getElementById('renderer').childNodes;
+            return(
+                <div>
+                    {animate(data, track.tempo)}
+                </div>
+            )
+        }*/
     }
 
     return(
         <div>
-            {metricsCheck(data)}
+            {metricsCheck(data, track)}
         </div>
     )
 }

@@ -17,6 +17,7 @@ const Visualizer = ({trackId, token}) => {
     },[metrics])
 
     async function getMetrics(trackId, token) {
+        console.log(trackId)
         const request = new Request(`https://api.spotify.com/v1/audio-analysis/${trackId}`, {
             headers: new Headers({
                 'Authorization': `Bearer ${token}`
@@ -35,13 +36,12 @@ const Visualizer = ({trackId, token}) => {
                 console.error(err);
             }
         ); 
-        console.log(tmp);
         return setMetrics(tmp);
     }
 
     return(
         <div>
-            <ThreeJsContainer data={metrics.segments}/>
+            <ThreeJsContainer data={metrics.segments}  track={metrics.track} trackId={trackId}/>
         </div>
     )
 }
